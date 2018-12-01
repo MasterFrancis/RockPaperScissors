@@ -21,7 +21,7 @@ public:
     
     void printSummary(){
         cout << "Player Win | Player Loss | Tie\n" <<
-        playerWin << " | " << playerLoss << " | " << ties;
+        playerWin << " | " << playerLoss << " | " << ties << "\n\n\n";
     }
     
     void playRound(){
