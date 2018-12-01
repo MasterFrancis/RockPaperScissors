@@ -15,6 +15,7 @@ using namespace std;
 int Rock = 0;
 int Paper = 1;
 int Scissors = 2;
+double decayFactor = 0.95;
 // Maps ints to according names
 string MAP[] = {"Rock", "Paper", "Scissors"};
 
@@ -28,9 +29,9 @@ int RESULT[3][3] = {{0, 2, 1}, {1, 0, 2}, {2, 1, 0}};
 // Markov Chain with length 3
 class MarkovAgent{
 private:
-    double Count[3][3][3] = {{{0,0,0},{0,0,0},{0,0,0}}
-        ,{{0,0,0},{0,0,0},{0,0,0}}
-        ,{{0,0,0},{0,0,0},{0,0,0}}};
+    double Count[3][3][3] = {{{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0}}
+        ,{{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0}}
+        ,{{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0}}};
     int last2 = -1;
     int last1 = -1;
     
@@ -62,6 +63,17 @@ private:
             }
         }
     }
+    
+    void weightDecay(){
+        for(int i = 0; i < 3; ++i){
+            for(int j = 0; j < 3; ++j){
+                for(int k = 0; k < 3; ++k){
+                    Count[i][j][k] *= decayFactor;
+                }
+            }
+        }
+    }
+    
 public:
     MarkovAgent(){
         srand(time(0));
@@ -102,6 +114,7 @@ public:
             last1 = current;
             
         }
+        weightDecay();
         write();
     }
     

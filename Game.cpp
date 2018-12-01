@@ -4,6 +4,7 @@
 using namespace std;
 
 
+
 class Game{
 private:
     int playerLoss = 0;
@@ -11,40 +12,57 @@ private:
     int ties = 0;
     MarkovAgent agent;
     
-    
-public:
-    Game(){
-        cout << "Please indicate which type of AI you want to play against.\n";
-        cout << "Warning: Currently, only markov-chain agent is available.\n";
-        
-    }
-    
     void printSummary(){
         cout << "Player Win | Player Loss | Tie\n" <<
         playerWin << " | " << playerLoss << " | " << ties << "\n\n\n";
     }
     
+    char convertToUpper(char c){
+        if(c >= 97){
+            c -= 32;
+        }
+        return c;
+    }
+    
+    
+public:
+    Game(){
+        cout << "Please indicate which type of AI you want to play against.\n";
+        cout << "Warning: Currently, only markov-chain agent is available.\n";
+        cout << "Type Q to quit\n\n";
+        
+    }
+    
+
+    
     void playRound(){
         int agentChoice = agent.predict();
         cout << "Please type your choice(R/P/S).\n";
         char userInput;
-        cin >> userInput;
         int userChoice = -1;
-        if(userInput == 'R'){
-            userChoice = 0;
+        while(userChoice == -1){
+            cin >> userInput;
+            userInput = convertToUpper(userInput);
+            if(userInput == 'R'){
+                userChoice = 0;
+            }
+            else if(userInput == 'P'){
+                userChoice = 1;
+            }
+            else if(userInput == 'S'){
+                userChoice = 2;
+            }
+            else if(userInput == 'Q'){
+                exit(0);
+            }
+            else{
+                cout << "Illegal Input\n";
+            }
         }
-        else if(userInput == 'P'){
-            userChoice = 1;
-        }
-        else if(userInput == 'S'){
-            userChoice = 2;
-        }
+        
         // Illegal Input
         
-        else{
-            cout << "Illegal Input\n";
-            exit(1);
-        }
+        
         
         cout << "Agent played " << MAP[agentChoice] << '\n';
         
