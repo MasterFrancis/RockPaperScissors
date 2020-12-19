@@ -10,6 +10,7 @@ This is an RPS game that allows players to play against a 3rd order Markov Chain
 * ./playRPS
 
 ## Example
+```bash
 Please indicate which type of AI you want to play against.
 Warning: Currently, only markov-chain agent is available.
 Type Q to quit
@@ -28,3 +29,4 @@ S
 Agent played Paper
 Player Win | Player Loss | Tie
 13 | 23 | 4
+```
